@@ -1,0 +1,14 @@
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(380px, 420px);
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.auth-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}

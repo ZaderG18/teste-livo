@@ -1,0 +1,19 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  margin-bottom: 1.2rem;
+
+  input {
+    background: rgba(255,255,255,.05);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: .7rem .8rem;
+    color: var(--livo-text);
+
+    &:focus {
+      outline: 2px solid var(--livo-primary);
+      background: rgba(255,255,255,.08);
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.space-bg {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(124,92,255,.15), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(169,149,255,.12), transparent 45%),
+    linear-gradient(180deg, var(--livo-bg), var(--livo-bg-soft));
+  animation: drift 20s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes drift {
+  from { filter: hue-rotate(0deg); }
+  to   { filter: hue-rotate(8deg); }
+}
