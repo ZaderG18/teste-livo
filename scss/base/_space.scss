@@ -1,15 +1,64 @@
+@use "../tokens/colors" as *;
+
 .space-bg {
   position: fixed;
   inset: 0;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(124,92,255,.15), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(169,149,255,.12), transparent 45%),
-    linear-gradient(180deg, var(--livo-bg), var(--livo-bg-soft));
-  animation: drift 20s ease-in-out infinite alternate;
+  background: radial-gradient(circle at 50% 120%, #1b112c 0%, #07040f 60%, #000000 100%);
   z-index: 0;
+  overflow: hidden;
 }
 
+// NEBULOSA (O toque Microsoft/Apple)
+// Uma mancha de cor suave que se move lentamente
+.nebula {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(124, 92, 255, 0.08), transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(99, 66, 218, 0.05), transparent 40%);
+  animation: drift 60s ease-in-out infinite alternate;
+  filter: blur(60px);
+}
+
+// ESTRELAS (CSS Puro usando box-shadow)
+// Gera estrelas randômicas sem precisar de imagens
+@function stars($n) {
+  $value: '#{random(2000)}px #{random(2000)}px #FFF';
+  @for $i from 2 through $n {
+    $value: '#{$value} , #{random(2000)}px #{random(2000)}px rgba(255,255,255,#{random(10)/10})';
+  }
+  @return unquote($value);
+}
+
+.stars {
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: stars(200); // Gera 200 estrelas
+  animation: star-drift 100s linear infinite;
+  opacity: 0.6;
+  
+  &::after {
+    content: " ";
+    position: absolute;
+    top: 2000px; // Repete o padrão para loop infinito vertical
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: stars(200);
+  }
+}
+
+// ANIMAÇÕES
 @keyframes drift {
-  from { filter: hue-rotate(0deg); }
-  to   { filter: hue-rotate(8deg); }
+  0% { transform: rotate(0deg) scale(1); }
+  100% { transform: rotate(5deg) scale(1.1); }
+}
+
+@keyframes star-drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-2000px); }
 }

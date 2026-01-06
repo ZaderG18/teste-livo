@@ -1,0 +1,70 @@
+@use "../tokens/colors" as *;
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 4, 15, 0.6); // Escurece o fundo
+  backdrop-filter: blur(8px); // Desfoca o fundo (foco total no modal)
+  z-index: 1000;
+  
+  // Centraliza o modal
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  
+  // Animação de entrada (Fade)
+  opacity: 0;
+  visibility: hidden;
+  transition: all .3s ease;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    
+    .livo-modal {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+.livo-modal {
+  width: 100%;
+  max-width: 400px;
+  background: #130a1f; // Cor sólida para leitura
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  
+  // Estado inicial da animação (Zoom Out)
+  transform: scale(0.95) translateY(10px);
+  opacity: 0;
+  transition: all .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  h2 {
+    margin-top: 0;
+    color: var(--livo-text);
+  }
+
+  p {
+    color: var(--livo-muted);
+    line-height: 1.5;
+    margin-bottom: 2rem;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--livo-muted);
+    cursor: pointer;
+    padding: 5px;
+    
+    &:hover { color: var(--livo-text); }
+  }
+}

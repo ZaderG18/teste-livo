@@ -1,14 +1,67 @@
+@use "../tokens/colors" as *; // Importando para garantir acesso (caso seu setup precise)
+
 .auth-layout {
   display: grid;
-  grid-template-columns: 1fr minmax(380px, 420px);
+  // O segredo: Coluna da esquerda flexível, direita fixa no tamanho ideal do card
+  grid-template-columns: 1fr minmax(380px, 450px);
   min-height: 100vh;
   position: relative;
   z-index: 1;
+  overflow: hidden; // Previne scroll indesejado na animação
+
+  // BREAKPOINT MOBILE (Onde a mágica acontece)
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr; // Vira uma coluna só
+  }
 }
 
+// LADO ESQUERDO (A Marca)
+.auth-brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 6rem;
+  
+  // Animação separada do card para criar profundidade
+  animation: floatIn .8s cubic-bezier(.22,1,.36,1) both;
+  
+  img {
+    width: 140px; // Tamanho autoritário, mas não gigante
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  p {
+    font-size: 1.25rem;
+    color: var(--livo-primary-soft); // Roxo suave, não branco
+    font-weight: 400;
+    letter-spacing: -0.02em; // Deixa mais "gráfico"
+    margin: 0;
+    max-width: 400px;
+    line-height: 1.5;
+  }
+
+  // No mobile, a marca lateral some para focar na ação
+  @media (max-width: 900px) {
+    display: none;
+  }
+}
+
+// LADO DIREITO (O Login)
 .auth-panel {
   display: flex;
+  flex-direction: column; // Preparado para rodapé se precisar
   align-items: center;
   justify-content: center;
-  padding: 3rem;
+  padding: 5rem;
+  
+  // Se quiser um fundo sutil no lado direito para separar (opcional, estilo Teams)
+  // background: rgba(0,0,0,0.2); 
+
+  @media (max-width: 900px) {
+    padding: 1.5rem;
+    
+    // Pequeno ajuste para garantir que o card não toque as bordas no mobile
+    width: 100%;
+  }
 }

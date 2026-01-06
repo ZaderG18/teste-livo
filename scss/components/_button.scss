@@ -1,11 +1,21 @@
+@use "../tokens/colors" as *; // Garantindo acesso às cores
+
 .livo-btn {
+  position: relative; // Necessário para posicionar o spinner
   width: 100%;
   padding: .8rem;
   border-radius: var(--radius-md);
   border: none;
   cursor: pointer;
   font-weight: 500;
+  font-size: 1rem;
   transition: all .2s ease;
+  
+  // Garante que o texto fique centralizado e visível
+  color: var(--livo-text); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &--primary {
     background: var(--livo-primary);
@@ -13,6 +23,42 @@
 
     &:hover {
       filter: brightness(1.1);
+      transform: translateY(-1px); // Micro interação de elevação
+      box-shadow: 0 4px 12px rgba(124, 92, 255, 0.3); // Glow suave no hover
+    }
+
+    &:active {
+      transform: translateY(0);
     }
   }
+
+  // ESTADO DE LOADING
+  &.is-loading {
+    color: transparent !important; // Esconde o texto "Entrar"
+    pointer-events: none; // Impede novos cliques
+    cursor: not-allowed;
+
+    // O Spinner criado com CSS puro
+    &::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 50%;
+      left: 50%;
+      margin-top: -10px; // Centraliza exato (metade da altura)
+      margin-left: -10px; // Centraliza exato (metade da largura)
+      
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white; // A parte que gira visível
+      border-radius: 50%;
+      
+      animation: spin .8s linear infinite;
+    }
+  }
+}
+
+// Animação de rotação simples
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }

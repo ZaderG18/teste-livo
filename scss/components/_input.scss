@@ -1,19 +1,127 @@
+@use "../tokens/colors" as *;
+
 .field {
   display: flex;
   flex-direction: column;
-  gap: .4rem;
-  margin-bottom: 1.2rem;
+  gap: .5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--livo-muted);
+  }
+
+  // Novo Wrapper para inputs com ícones
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    input {
+      width: 100%;
+      padding-right: 2.5rem; // Espaço para o ícone não ficar em cima do texto
+    }
+
+    // O botão do ícone
+    .toggle-pass {
+      position: absolute;
+      right: 0.8rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.5;
+      transition: opacity .2s;
+      color: var(--livo-text);
+
+      &:hover {
+        opacity: 1;
+      }
+
+      // Se usar SVG, define o tamanho aqui
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
 
   input {
-    background: rgba(255,255,255,.05);
-    border: none;
+    // ... (Mantenha o estilo anterior do input aqui: background, border, focus...)
+    background: rgba(255,255,255,.03);
+    border: 1px solid transparent;
     border-radius: var(--radius-sm);
-    padding: .7rem .8rem;
+    padding: .8rem 1rem;
     color: var(--livo-text);
+    font-size: 1rem;
+    transition: all .2s ease;
+    width: 100%;
 
     &:focus {
-      outline: 2px solid var(--livo-primary);
+      outline: none;
       background: rgba(255,255,255,.08);
+      border-color: var(--livo-primary);
+      box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.15);
     }
+  }
+}.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  user-select: none;
+  
+  input[type="checkbox"] {
+    display: none; // Esconde o original
+  }
+
+  // O quadrado desenhado
+  .check-box {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--livo-muted);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s;
+    background: rgba(255,255,255,0.05);
+
+    // O ícone de check (inicialmente invisível)
+    svg {
+      width: 14px;
+      height: 14px;
+      color: white;
+      transform: scale(0);
+      transition: transform .2s cubic-bezier(0.5, 2, 0.5, 1);
+    }
+  }
+
+  // Label do texto
+  span {
+    color: var(--livo-muted);
+    font-size: 0.9rem;
+    transition: color .2s;
+  }
+
+  // ESTADO: MARCADO
+  input:checked + .check-box {
+    background: var(--livo-primary);
+    border-color: var(--livo-primary);
+    
+    svg {
+      transform: scale(1);
+    }
+  }
+  
+  // Hover no texto ou box
+  &:hover {
+    .check-box { border-color: var(--livo-text); }
+    span { color: var(--livo-text); }
   }
 }
